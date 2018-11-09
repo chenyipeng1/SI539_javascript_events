@@ -1,12 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>JavaScript Challenges</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Events</title>
     <style>
     #myCanvas {
         border:1px solid #d3d3d3;
         background-color: #f1f1f1;
         display: block;
+    }
+    html,body{
+      overflow: hidden;
+      height: 100%;
     }
     </style>
   </head>
@@ -32,7 +38,6 @@
           document.addEventListener('touchmove', onTouchMove, false);
           document.addEventListener('keydown', function(){
             press = window.event;
-            console.log(press.key)
             if (press.key == ' '){clearDraw(press)}
             if (press.key == 'r'){color = "red";}
             if (press.key == 'y'){color = "yellow";}
@@ -53,7 +58,6 @@
               ctx.beginPath();
               ctx.arc(e.clientX, e.clientY, r, 0, Math.PI * 2, false);
               ctx.lineWidth = 1;
-              console.log(color);
               ctx.fillStyle = color;
               ctx.fill();
 
@@ -65,6 +69,7 @@
             if (is_clear == false){
               document.getElementById("selector").appendChild(but);
             }
+            return false;
           }
           function onTouchEnd(e){
             touchClicked = false;
@@ -72,7 +77,7 @@
           function onTouchMove(e){
             if(touchClicked){
               ctx.beginPath();
-              ctx.arc(e.clientX, e.clientY, r, 0, Math.PI * 2, false);
+              ctx.arc(e.changedTouches[0].clientX, e.changedTouches[0].clientY, r, 0, Math.PI * 2, false);
               ctx.lineWidth = 1;
               ctx.fillStyle = color;
               ctx.fill();
